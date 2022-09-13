@@ -1,7 +1,7 @@
 // controller manipulates data into a form that can be returned to the front end
 const { 
     getAllLaunches, 
-    addNewLaunch,
+    scheduleNewLaunch,
     existsLaunchWithId,
     abortLaunchById, 
 } = require('../../models/launches.model');
@@ -11,7 +11,7 @@ async function httpGetAllLaunches(req, res) {
     return res.status(200).json(await getAllLaunches());
 }
 
-function httpAddNewLaunch(req, res) {
+async function httpAddNewLaunch(req, res) {
     // because middleware in app.js, receive req as parsed json
     const launch = req.body;
      // error if missing any data
@@ -27,16 +27,16 @@ function httpAddNewLaunch(req, res) {
                 error: 'invalid launch date'
             });      
         }
-        addNewLaunch(launch);
+        await scheduleNewLaunch(launch);
         // return data so user knows all data was processed in backend
         return res.status(201).json(launch);
     }
 }
 
-function httpAbortLaunch(req, res) {
+async function httpAbortLaunch(req, res) {
     // params is a string, convert to a number for as Map key is a number
     const launchId = Number(req.params.id)
-    const exist = existsLaunchWithId(launchId)
+    const exist = await existsLaunchWithId(launchId)
 
     // if launch not found
     if (!exist) {
@@ -45,7 +45,17 @@ function httpAbortLaunch(req, res) {
       });
     }
     // if launch is found
-    const aborted = abortLaunchById(launchId);
+    const aborted = await abortLaunchById(launchId);
+    if (!aborted) {
+        return res.status(400).json({
+            error: 'launch not aborted',
+        }); 
+    } else {
+        return res.status(200).json({
+           ok: true,
+        });
+    }
+    
     return res.status(200).json(aborted);
     
 }
