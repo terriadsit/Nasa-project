@@ -31,7 +31,7 @@ async function startServer() {
     //await mongoose.connect(MONGO_URL);
 
 
-    await mongoConnect;
+    await mongoConnect();
     await loadPlanetsData();
 
     server.listen(PORT, () => {
