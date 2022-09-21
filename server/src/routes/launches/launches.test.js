@@ -16,13 +16,13 @@ describe('Launches API',() => {
     describe('Test GET /launches', () => {
         test('It should respond with 200 success', async () => {
            const response = await request(app)
-             .get('/launches') //request calls the listen function on app
+             .get('/v1/launches') //request calls the listen function on app
              .expect('Content-Type', /json/) // supertest assertions to check response
              .expect(200);
         });
     });
     
-    describe('Test POST /launch', () => {
+    describe('Test POST /v1/launch', () => {
     
         const completeLaunchData = {
             mission: 'USS enterprise',
@@ -46,7 +46,7 @@ describe('Launches API',() => {
     
         test('It should respond with 201 created success', async () => {
             const response = await request(app)
-            .post('/launches')
+            .post('/v1/launches')
             .send(completeLaunchData)
             .expect('Content-Type', /json/)
             .expect(201);
@@ -61,7 +61,7 @@ describe('Launches API',() => {
     
         test('It should catch missing required properties', async () => {
             const response = await request(app)
-            .post('/launches')
+            .post('/v1/launches')
             .send(launchDataWithoutDate)
             .expect('Content-Type', /json/)
             .expect(400);
@@ -73,7 +73,7 @@ describe('Launches API',() => {
     
         test('It should catch invalid dates', async () => {
             const response = await request(app)
-            .post('/launches')
+            .post('/v1/launches')
             .send(launchDataWithInvalidDate)
             .expect('Content-Type', /json/)
             .expect(400);

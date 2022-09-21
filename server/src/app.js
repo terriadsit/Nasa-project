@@ -4,8 +4,7 @@ const cors = require('cors');
 const morgan = require('morgan');
 const path = require('path');
 
-const planetsRouter = require('./routes/planets/planets.router')
-const launchesRouter = require('./routes/launches/launches.router')
+const api = require('./routes/api');
 
 const app = express();
 
@@ -16,13 +15,13 @@ app.use(cors({
 
 //manage logs of requests, use combined format
 app.use(morgan('combined'));
+
 app.use(express.json()); // parse json'
 // client production build accessed by static
 app.use(express.static(path.join(__dirname, '..', 'public' )))
 
-app.use('/planets', planetsRouter);
-// express allows you to mount middleware on a specific path
-app.use('/launches', launchesRouter);
+//allows us to support multiple version of our api
+app.use('/v1', api);
 
 // Send routes other than those above through Client index.html in public build
 app.get('/*', (req, res) => {

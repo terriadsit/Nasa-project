@@ -11,28 +11,18 @@ const app = require('./app');
 //input request listener function to createServer wh/ responds to all incoming request to our server, a listener
 
 const { loadPlanetsData } = require('./models/planets.model');
-
+const { loadLaunchesData } = require('./models/launches.model')
 const { mongoConnect } = require('./services/mongo');
 
 const server = http.createServer(app);
 
 const PORT = process.env.PORT || 8000; // may set env in start script
 
-// mongoose.connection.once('open', () => {
-//     console.log('MongoDB connection ready!');
-// });
-
-// mongoose.connection.on('error', (err) => {
-//     console.error(err);
-// });
-
 // load data, Mongo, before server begins responding to requests
 async function startServer() {
-    //await mongoose.connect(MONGO_URL);
-
-
     await mongoConnect();
     await loadPlanetsData();
+    await loadLaunchesData();
 
     server.listen(PORT, () => {
         console.log('listening on port:',PORT)
