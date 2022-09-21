@@ -1,9 +1,7 @@
-//const mongoose = require('mongoose');
-
-//const MONGO_URL = 'mongodb+srv://nasa-api:nfLd3l7iGipDWgOv@cluster0.lz04i.mongodb.net/nasa?retryWrites=true&w=majority';
-
 
 const http = require('http'); //node built in http module
+
+require('dotenv').config(); //populates process.env object with the values in .env
 
 const app = require('./app');
 
