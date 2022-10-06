@@ -5,7 +5,7 @@ require('dotenv').config(); //populates process.env object with the values in .e
 
 const app = require('./app');
 
- // put all of our express code into app.js
+// put all of our express code into app.js 
 //input request listener function to createServer wh/ responds to all incoming request to our server, a listener
 
 const { loadPlanetsData } = require('./models/planets.model');
