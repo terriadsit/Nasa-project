@@ -5,6 +5,7 @@ const request = require('supertest'); //installed supertest in npm
 const app = require('../../app');
 const { loadPlanetsData } = require('../../models/planets.model');
 
+// need mongoConnect, loadPlanetsData because server is never called
 describe('Launches API',() => {
     beforeAll(async () => {
         await mongoConnect();
