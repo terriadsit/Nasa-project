@@ -10,6 +10,7 @@
     "react-scripts": "^5.0.0"
   },
   "scripts": {
+    "build-docker": "BUILD_PATH=../server/public react-scripts build",
     "start": "react-scripts start",
     "build": "set BUILD_PATH=../server/public&& react-scripts build",
     "test": "react-scripts test --passWithNoTests",

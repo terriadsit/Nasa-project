@@ -1,7 +1,7 @@
 // contains all of our express code used for multiple routers
 const express = require('express');
 const cors = require('cors');
-const morgan = require('morgan');
+//const morgan = require('morgan');
 const path = require('path');
 
 const api = require('./routes/api');
@@ -14,7 +14,7 @@ app.use(cors({
 }));
 
 //manage logs of requests, use combined format
-app.use(morgan('combined'));
+//app.use(morgan('combined'));
 
 app.use(express.json()); // parse json'
 // client production build accessed by static
